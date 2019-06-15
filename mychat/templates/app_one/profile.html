@@ -1,0 +1,122 @@
+{% extends "app_one/base.html" %}
+{% load staticfiles %}
+  {% block body_block %}
+  <!-- <div class="alert alert-primary " id="my_alert" role="alert" >
+  Sorry!!We are still working on it
+</div> -->
+  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <form class="form-inline my-2 my-lg-0 mx-auto" method="POST" >
+      {% csrf_token %}
+      <div class="form-group">
+        <input type="search"  class="form-control mr-sm-2 "id=""   name="username_to_be_find" placeholder="Search by Username">
+      </div>
+      <input type="submit" class="btn btn-outline-success my-2 mr-sm-0" value="Search">
+    </form>
+  </nav>
+  <div class="container">
+  <div class="card ">
+    <div class="row">
+      <img src="{% static 'images/user_pic.png' %}" class="col-sm-2 my-2 mx-4" alt="">
+      <div class="col-sm-8 my-4">
+        <div class="row">
+          <h3 class="col-sm-4">{{ userinfo.user.first_name}} {{userinfo.user.last_name}}</h3>
+        </div>
+        <h5 class="username">@{{userinfo.user.username}}</h5>
+        <div class="row">
+          <p class="col-sm-2"><strong>Followers</strong></p>
+          <p class="col-sm-2"><strong>{{ userinfo.followers.all|length}}</strong></p>
+          <p class="col-sm-2"><strong>Following</strong></p>
+          <p class="col-sm-2"><strong>{{ userinfo.following.all|length}}</strong></p>
+
+        </div>
+        <div class="row">
+          <p class="col-sm-2"><strong>Posts</strong></p>
+          <p class="col-sm-2"><strong>{{ userinfo.posts.all|length}}</strong></p>
+
+        </div>
+        <br>
+          {%ifequal userinfo.user user %}
+          <button type="button" name="edit_profile" id="edit_profile" class="btn btn-warning" >Edit Profile</button>
+          {% else %}
+          <form action="{% url 'app_one:follow' user_i_want_to_follow_id=userinfo.id %}" method="post">
+            {% csrf_token %}
+            <input type="submit" class="btn btn-primary" value="Follow">
+          </form>
+          {% endifequal %}
+      </div>
+    </div>
+  </div>
+</div>
+{% ifequal userinfo.user user %}
+<div class="container">
+  <div class="card">
+    <div class="card-body">
+      <h1 class="card-title">New Post.</h1>
+      <form  method="POST">
+        {% csrf_token %}
+        <div class="form-group">
+          <label for="title_id">Title:</label>
+          <input type="text" id="title_id" name="title" class="form-control" value="" placeholder="Title...">
+        </div>
+        <div class=" form-group">
+          <label for="message_id">Message:</label>
+          <textarea rows="4" cols="130" id="message_id" name="message" class="card-text form-control" placeholder="write here...."></textarea>
+        </div>
+        <input type="submit" class="btn btn-success" value="Post">
+      </form>
+    </div>
+  </div>
+</div>
+{% endifequal %}
+    <!-- <h1>{{userinfo.user.username}}</h1>
+    <h1>{{userinfo.user.first_name}}</h1> -->
+    <!-- <h1>{{userinfo.friends}}</h1> -->
+   {% if userinfo.posts %}
+      {% for post in userinfo.posts.all|dictsortreversed:"date_of_posting" %}
+      <div class="container">
+        <div class="card">
+          <div class="card-header">
+            <h3 class="Mytitle">{{post.title}}</h3>
+            <h6>@{{post.posted_by.user.username}}, {{post.date_of_posting}}</h6>
+
+          </div>
+
+          <p class="Mymessage px-4">{{ post.message }}</p>
+          <p class="px-2"><a href="{% url 'app_one:like' pk=post.id from='profile' %}">Likes</a>:{{post.likes.all|length}}  <a href="#">comments</a>:{{post.comments.all|length}}
+          </p>
+
+        </div>
+        <form action="{% url 'app_one:comment' pk=post.id from='profile' %}" method="post">
+          {% csrf_token %}
+          <div class="form-row">
+            <div class="form-group col-lg-10">
+                <input type="text" name="comment" class="form-control" placeholder="Add a comment...">
+            </div>
+            <div class="col-lg-2">
+              <input type="submit" class="btn btn-primary btn-block " value="Comment">
+            </div>
+          </div>
+
+        </form>
+        <div class="card">
+        {% for comment in post.comments.all %}
+            <h6 class="px-2">{{comment.commented_by}}, {{comment.date_of_commenting}}</h6>
+            <p class="Mymessage px-4">{{comment.message}}</p>
+
+        {% endfor %}
+        </div>
+      </div>
+
+      <br><br>
+      {% endfor %}
+    {% else %}
+      <h3>No post</h3>
+    {% endif %}
+    <script type="text/javascript">
+      $('#edit_profile').click(function(){
+        <!-- $('#my_alert').alert() -->
+          <!-- $(".alert").alert('close') -->
+        <!-- $('.my_alert').fadeout(5000) -->
+      })
+    </script>
+  {% endblock %}

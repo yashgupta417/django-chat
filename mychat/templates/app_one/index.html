@@ -1,0 +1,18 @@
+{% extends "app_one/base.html" %}
+{% load staticfiles %}
+  {% block body_block %}
+
+  <div class="container">
+    <div class="jumbotron">
+      <div class="row">
+        <div class="col-sm-4">
+          <img src="{% static 'images/mychat_logo.png' %}" alt="">
+        </div>
+        <div class="col-sm-8">
+          <h1 class="display-4">MyChat</h1>
+          <p class="lead">A platform to connect to your loved ones. Chat,Post and See other's Posts</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  {% endblock %}

@@ -1,0 +1,51 @@
+{% extends "app_one/base.html" %}
+{% load staticfiles %}
+  {% block body_block %}
+  {% if post_list %}
+     {% for post in post_list %}
+     <div class="container">
+       <div class="card">
+         <div class="card-header">
+           <h3 class="Mytitle">{{post.title}}</h3>
+           <h6>@{{post.posted_by.user.username}}, {{post.date_of_posting}}</h6>
+
+         </div>
+
+         <p class="Mymessage px-4">{{ post.message }}</p>
+         <p class="px-2"><a href="{% url 'app_one:like' pk=post.id from='home' %}">Likes</a>:{{post.likes.all|length}}  <a href="#">comments</a>:{{post.comments.all|length}}
+         </p>
+
+       </div>
+       <form action="{% url 'app_one:comment' pk=post.id from='home' %}" method="post">
+         {% csrf_token %}
+         <div class="form-row">
+           <div class="form-group col-lg-10">
+               <input type="text" name="comment" class="form-control" placeholder="Add a comment...">
+           </div>
+           <div class="col-lg-2">
+             <input type="submit" class="btn btn-primary btn-block " value="Comment">
+           </div>
+         </div>
+
+       </form>
+       <div class="card">
+       {% for comment in post.comments.all %}
+           <h6 class="px-2">{{comment.commented_by}}, {{comment.date_of_commenting}}</h6>
+           <p class="Mymessage px-4">{{comment.message}}</p>
+
+       {% endfor %}
+       </div>
+     </div>
+
+     <br><br>
+     {% endfor %}
+   {% else %}
+     <h3>No post</h3>
+   {% endif %}
+  <!-- <div class="container">
+    {% for post in post_list %}
+      {{ post.message }}
+      {{ post.posted_by.user.username}}
+    {% endfor %}
+  </div> -->
+  {% endblock %}
