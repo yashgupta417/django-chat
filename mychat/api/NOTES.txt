@@ -1,0 +1,35 @@
+API
+
+Ref: django-rest-framework
+     cdrf.co.uk
+     udemy/rest-api-course
+     youtube/codingEntrepreneurs
+
+*install djangorestframework using "pip install djangorestframework"
+*startapp ,here we named it "api"
+*create a models.py or use them from some other app
+*create serializers.py within "api" app   (serializers are used to convert data into json and use to validate data)
+*now in views.py, create views inheriting generics.APIView or generics.RetrieveUpdateDestroyAPIView or generics.ListAPIView
+*set endpoints using urls.py
+
+---------------------------------------------------------------------------------------------------------------------------------------------------
+we have URI params and query params in url
+
+URI PARAMS
+#  Till now we have used URI params
+#  to send them from template or view,just make a dcitionary[kwargs] and set key value pairs   {% url 'app_one:profile' pk=user.pk %}
+  reverse('app_one:profile',kwargs={'pk':user.pk})
+
+#  to access them ,use kwargs['key']
+  def profile(request,*args,**kwargs):
+    id=kwargs['pk']
+
+QUERY PARAMS
+#  https://www.google.com/search?rlz=1C1CHBD_enIN817IN817
+  this involve query params
+#  to send them from client, just modify url,like we used to do in android development
+#  to send them from template <a href="{% url 'myview' %}?office=foobar"> , <a href="{% url 'myview' %}?office={{ some_var | urlencode }}">
+#  to send them from view return redirect(reverse('search_view') + '?item=4')
+#  to access them
+  def get_queryset(self):
+    longitude = self.request.query_params.get('longitude')
