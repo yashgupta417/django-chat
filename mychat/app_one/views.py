@@ -8,7 +8,7 @@ from django.contrib.auth.decorators import login_required
 from django.shortcuts import render
 from app_one.forms import UserForm,PostForm
 from django.contrib.auth.models import User
-from .models import UserInfo,Post,Comment,ChatRoom,Message
+from .models import UserInfo,Post,Comment
 
 class HomeView(ListView):
     model=Post

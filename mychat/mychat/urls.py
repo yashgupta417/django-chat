@@ -16,10 +16,10 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from django.conf.urls import include,url
-from app_one import views
+# from app_one import views
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
+    path('admin/',admin.site.urls),
     url(r'^api/',include('api.urls')),
     url(r'^',include('app_one.urls')),
 ]

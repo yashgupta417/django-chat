@@ -49,9 +49,9 @@ class Comment(models.Model):
 # class ChatRoom(models.Model):
 #     chat_room_name=models.CharField(max_length=256,blank=True)
 #     persons=models.ManyToManyField(UserInfo,related_name='chat_rooms',blank=True)
-class Message(models.Model):
-    chatRoom=models.ForeignKey(ChatRoom,related_name='messages',on_delete=models.CASCADE)
-    message=models.TextField()
-    sender=models.ForeignKey(UserInfo,related_name='messages_as_sender',on_delete=models.CASCADE)
-    recipient=models.ForeignKey(UserInfo,related_name='messages_as_recipient',on_delete=models.CASCADE)
-    date_of_messaging=models.DateTimeField(timezone.now)
+# class Message(models.Model):
+#     chatRoom=models.ForeignKey(ChatRoom,related_name='messages',on_delete=models.CASCADE)
+#     message=models.TextField()
+#     sender=models.ForeignKey(UserInfo,related_name='messages_as_sender',on_delete=models.CASCADE)
+#     recipient=models.ForeignKey(UserInfo,related_name='messages_as_recipient',on_delete=models.CASCADE)
+#     date_of_messaging=models.DateTimeField(timezone.now)
