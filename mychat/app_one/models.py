@@ -46,9 +46,9 @@ class Comment(models.Model):
     def __str__(self):
         return self.message
 
-class ChatRoom(models.Model):
-    chat_room_name=models.CharField(max_length=256,blank=True)
-    persons=models.ManyToManyField(UserInfo,related_name='chat_rooms',blank=True)
+# class ChatRoom(models.Model):
+#     chat_room_name=models.CharField(max_length=256,blank=True)
+#     persons=models.ManyToManyField(UserInfo,related_name='chat_rooms',blank=True)
 class Message(models.Model):
     chatRoom=models.ForeignKey(ChatRoom,related_name='messages',on_delete=models.CASCADE)
     message=models.TextField()
