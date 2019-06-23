@@ -24,7 +24,16 @@ class UserInfo(models.Model):
 #     person1=models.ForeignKey(UserInfo,related_name='friendships1',on_delete=models.CASCADE)
 #     person2=models.ForeignKey(UserInfo,related_name='friendships2',on_delete=models.CASCADE)
 #     date=models.DateTimeField(default=timezone.now)
+from django.conf import settings
+from django.db.models.signals import post_save
+from django.dispatch import receiver
+from rest_framework.authtoken.models import Token
 
+@receiver(post_save, sender=settings.AUTH_USER_MODEL)
+def create_auth_token(sender, instance=None, created=False, **kwargs):
+    if created:
+        Token.objects.create(user=instance)
+        
 class Post(models.Model):
     posted_by=models.ForeignKey(UserInfo,related_name='posts',on_delete=models.CASCADE,null=True,blank=True)
     title=models.CharField(max_length=255)

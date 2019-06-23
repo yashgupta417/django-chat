@@ -8,3 +8,7 @@ urlpatterns=[
     url(r'userinfo_list/$',views.UserInfoListApiView.as_view(),name="userinfo_list_api"),
     url(r'user_list/$',views.UserListApiView.as_view(),name="user_list_api")
 ]
+from rest_framework.authtoken import views
+urlpatterns += [
+    url(r'^api-token-auth/', views.obtain_auth_token)
+]
