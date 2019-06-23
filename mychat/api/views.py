@@ -1,6 +1,7 @@
 from rest_framework import generics
-from api.serializers import PostSerializer,UserInfoSerializer
+from api.serializers import PostSerializer,UserInfoSerializer,UserSerializer
 from app_one.models import Post,UserInfo
+from django.contrib.auth import get_user_model
 class PostListApiView(generics.ListCreateAPIView):
     # queryset=Post.objects.all()
     serializer_class=PostSerializer
@@ -39,3 +40,9 @@ class PostDetailApiView(generics.RetrieveUpdateDestroyAPIView):
     def get_object(self):
         pk=self.kwargs.get('pk')
         return Post.objects.get(pk=pk)
+
+class UserListApiView(generics.ListCreateAPIView):
+    serializer_class=UserSerializer
+
+    def get_queryset(self):
+        return get_user_model().objects.all()

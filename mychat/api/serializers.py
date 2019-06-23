@@ -1,5 +1,6 @@
 from rest_framework import serializers
 from app_one.models import Post,UserInfo
+from django.contrib.auth import get_user_model
 
 class PostSerializer(serializers.ModelSerializer):
     class Meta:
@@ -22,3 +23,8 @@ class UserInfoSerializer(serializers.ModelSerializer):
         model=UserInfo
         fields=['user','id','following','followers','post_liked']
         read_only_fields=['pk',]
+
+class UserSerializer(serializers.ModelSerializer):
+    class Meta:
+        model=get_user_model()
+        field='__all__'
