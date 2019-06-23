@@ -46,3 +46,13 @@ class UserListApiView(generics.ListCreateAPIView):
 
     def get_queryset(self):
         return get_user_model().objects.all()
+
+class UserDetailView(generics.RetrieveUpdateDestroyAPIView):
+    serializer_class=UserSerializer
+
+    def get_queryset(self):
+        return get_user_model().objects.all()
+
+    def get_object(self):
+        pk=self.kwargs.get('pk')
+        return get_user_model().objects.get(pk=pk)
