@@ -17,9 +17,14 @@ from django.contrib import admin
 from django.urls import path
 from django.conf.urls import include,url
 # from app_one import views
-
+from django.conf import settings
+from django.conf.urls.static import static
 urlpatterns = [
     path('admin/',admin.site.urls),
     url(r'^api/',include('api.urls')),
     url(r'^',include('app_one.urls')),
 ]
+from django.conf import settings
+from django.views.static import serve
+if settings.DEBUG:
+    urlpatterns+=[url(r'^media/(?P<path>.*)/$',serve,{'document_root':settings.MEDIA_ROOT})]

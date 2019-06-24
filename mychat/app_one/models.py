@@ -33,9 +33,10 @@ from rest_framework.authtoken.models import Token
 def create_auth_token(sender, instance=None, created=False, **kwargs):
     if created:
         Token.objects.create(user=instance)
-        
+
 class Post(models.Model):
     posted_by=models.ForeignKey(UserInfo,related_name='posts',on_delete=models.CASCADE,null=True,blank=True)
+    image=models.ImageField(upload_to="image/%Y/%m/%D",blank=True,null=True)
     title=models.CharField(max_length=255)
     message=models.TextField()
     likes=models.ManyToManyField(UserInfo,related_name='post_liked',blank=True)
