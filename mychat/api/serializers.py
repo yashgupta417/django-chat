@@ -5,7 +5,7 @@ from django.contrib.auth import get_user_model
 class PostSerializer(serializers.ModelSerializer):
     class Meta:
         model=Post
-        fields=['title','message','posted_by','likes']
+        fields=['image','title','message','posted_by','likes']
         read_only_fields=['pk',]
 # class UserInfoDetailSerializer(serializers.ModelSerializer):
 #     class Meta:
