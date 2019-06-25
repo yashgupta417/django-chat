@@ -8,8 +8,8 @@ class PostListApiView(generics.ListCreateAPIView):
 
     def get_queryset(self):
         return Post.objects.all()
-    def perform_create(self, serializer):
-        serializer.save(data=self.request.data)
+    # def perform_create(self, serializer):
+    #     serializer.save(data=self.request.data) this shit was causing errors
 
 
 class UserInfoListApiView(generics.ListCreateAPIView):
