@@ -42,8 +42,20 @@ INSTALLED_APPS = [
     'app_one',
     'api',
     'rest_framework.authtoken',
+    'push_notifications'
 ]
 
+PUSH_NOTIFICATIONS_SETTINGS = {
+        "FCM_API_KEY": "AAAA3xWzcgA:APA91bEpf65IiDpRsHETQcwYIRML6tGugHaYu3w7ZIQXB4f0vDlyVI8626MPRWzywPM9eQ7cXBuMGQMp9Nvb7mrYv8mZUvjPLUVMZ40TnrrV5Brs94XiAF0hTKODFkxUfkrhsXpPiLG4",
+
+        # "GCM_API_KEY": "[your api key]",
+        # "APNS_CERTIFICATE": "/path/to/your/certificate.pem",
+        # "APNS_TOPIC": "com.example.push_test",
+        # "WNS_PACKAGE_SECURITY_ID": "[your package security id, e.g: 'ms-app://e-3-4-6234...']",
+        # "WNS_SECRET_KEY": "[your app secret key, e.g.: 'KDiejnLKDUWodsjmewuSZkk']",
+        # "WP_PRIVATE_KEY": "/path/to/your/private.pem",
+        # "WP_CLAIMS": {'sub': "mailto: development@example.com"}
+}
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',

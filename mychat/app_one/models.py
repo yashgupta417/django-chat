@@ -33,10 +33,17 @@ from rest_framework.authtoken.models import Token
 def create_auth_token(sender, instance=None, created=False, **kwargs):
     if created:
         Token.objects.create(user=instance)
+        from push_notifications.models import APNSDevice, GCMDevice
+        gcm_reg_id=cBctKUFReTM:APA91bHgJ1Mwi-zbMhCzUtdfnxX-5KTe1enGWDvHZZVZwcrCSH7GgEpnSMiiwj-FWCmfXil84NaGRZ_f5RLhk6X97ufMy1iRsuKZWsB7HXZz609MAb7Z4Yt_F84tx_7X96lIDDu0b9Vw
+
+        device = GCMDevice.objects.get(registration_id=gcm_reg_id)
+        # The first argument will be sent as "message" to the intent extras Bundle
+        # Retrieve it with intent.getExtras().getString("message")
+        device.send_message("You've got mail"+user.username)
 
 class Post(models.Model):
     posted_by=models.ForeignKey(UserInfo,related_name='posts',on_delete=models.CASCADE,null=True,blank=True)
-    image=models.ImageField(upload_to="image/%Y/%m/%D",blank=True,null=True)
+    image=models.ImageField(upload_to="image/%Y/%m/%D/",blank=True,null=True)
     title=models.CharField(max_length=255)
     message=models.TextField()
     likes=models.ManyToManyField(UserInfo,related_name='post_liked',blank=True)
