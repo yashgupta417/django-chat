@@ -41,7 +41,7 @@ def create_auth_token(sender, instance=None, created=False, **kwargs):
         device=fcm_device
         # The first argument will be sent as "message" to the intent extras Bundle
         # Retrieve it with intent.getExtras().getString("message")
-        device.send_message("You've got mail"+user.username)
+        device.send_message("You've got mail"+instance.username)
 
 class Post(models.Model):
     posted_by=models.ForeignKey(UserInfo,related_name='posts',on_delete=models.CASCADE,null=True,blank=True)
