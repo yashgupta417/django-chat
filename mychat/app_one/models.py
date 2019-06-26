@@ -34,10 +34,11 @@ def create_auth_token(sender, instance=None, created=False, **kwargs):
     if created:
         Token.objects.create(user=instance)
         from push_notifications.models import APNSDevice, GCMDevice
-        gcm_reg_id="cBctKUFReTM:APA91bHgJ1Mwi-zbMhCzUtdfnxX-5KTe1enGWDvHZZVZwcrCSH7GgEpnSMiiwj-FWCmfXil84NaGRZ_f5RLhk6X97ufMy1iRsuKZWsB7HXZz609MAb7Z4Yt_F84tx_7X96lIDDu0b9Vw"
-        
+        reg_id="cBctKUFReTM:APA91bHgJ1Mwi-zbMhCzUtdfnxX-5KTe1enGWDvHZZVZwcrCSH7GgEpnSMiiwj-FWCmfXil84NaGRZ_f5RLhk6X97ufMy1iRsuKZWsB7HXZz609MAb7Z4Yt_F84tx_7X96lIDDu0b9Vw"
+        fcm_device = GCMDevice.objects.create(registration_id=reg_id, cloud_message_type="FCM", user=instance)
 
-        device = GCMDevice.objects.get(registration_id=gcm_reg_id)
+        # device = GCMDevice.objects.get(registration_id=gcm_reg_id)
+        device=fcm_device
         # The first argument will be sent as "message" to the intent extras Bundle
         # Retrieve it with intent.getExtras().getString("message")
         device.send_message("You've got mail"+user.username)
