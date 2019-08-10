@@ -1,5 +1,5 @@
 # About
-A text blogging Platform [link](http://yashgupta417.pythonanywhere.com/)
+WeWrite is a text blogging Platform [link](http://yashgupta417.pythonanywhere.com/)
 
 ## Technologies Used
 - Django
